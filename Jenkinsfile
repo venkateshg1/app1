@@ -7,9 +7,9 @@ pipeline {
                 git branch: 'main', credentialsId: 'GitCred', url: 'https://github.com/venkateshg1/app1.git'
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Testing..'
+                mvn --version
             }
         }
         stage('Deploy') {
