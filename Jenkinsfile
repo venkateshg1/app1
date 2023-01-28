@@ -1,13 +1,6 @@
 pipeline {
   agent any
      stages {
-        stage ("SCM") { 
-          steps
-              { 
-                sh 'git clone https://github.com/venkateshg1/app1.git'
- 
-              }
-           }
        stage ("Build") { 
           steps
               { 
