@@ -23,7 +23,7 @@ pipeline {
              
             steps 
    {
-     sh "docker run -d -p 9090:8080 docker.io/venky3690/image:${BUILD_NUMBER}"
+     sh "docker run -dt -p 9093:80 docker.io/venky3690/image:${BUILD_NUMBER}"
  
             }
         }
