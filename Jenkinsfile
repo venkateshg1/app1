@@ -12,6 +12,7 @@ pipeline {
                sh 'pwd'
                sh 'ls -l'
                sh 'mvn --version'
+               sh 'cd app1'
                sh 'mvn clean package'
             }
         }
