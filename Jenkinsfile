@@ -44,12 +44,5 @@ pipeline {
  
             }
         }
-       stage ("Deploy") {
-          steps
-              { 
-
- 
-              }
-           }
-       }
+      }
 }
