@@ -1,25 +1,38 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('SCM') {
-            steps {
-                git branch: 'main', credentialsId: 'GitCred', url: 'https://github.com/venkateshg1/app1.git'
+  agent any
+     stages {
+        stage ("SCM") { 
+          steps
+              { 
+                sh 'git clone https://github.com/venkateshg1/app1.git'
+ 
+              }
+           }
+       stage ("Build") { 
+          steps
+              { 
+                 sh 'docker build -t docker.io/venky3690/image:${BUILD_NUMBER} -f Imagefiles/Dockerfile .'
+ 
+              }
+           }
+       stage ("Push") {
+          steps
+              { 
+                 withCredentials([usernamePassword(credentialsId: 'DockerCred', passwordVariable: 'dockerregpasswd', usernameVariable: 'dockeruser')]) {
+    
+                 sh 'docker login -u ${dockeruser} -p ${dockerregpasswd}'
+                 sh 'docker push docker.io/venky3690/image:${BUILD_NUMBER}'
+                }
+                 
+              }
+           }
+       stage('Run Docker container on Jenkins Agent') {
+             
+            steps 
+   {
+                sh "docker run -d -p 9090:8080 image"
+ 
             }
         }
-        stage('Build') {
-            steps {
-               sh 'pwd'
-               sh 'ls -l'
-               sh 'mvn --version'
-               sh 'cd app1'
-               sh 'mvn clean package'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    }
+      }
 }
