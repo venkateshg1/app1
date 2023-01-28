@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                mvn --version
+               sh 'mvn --version'
             }
         }
         stage('Deploy') {
