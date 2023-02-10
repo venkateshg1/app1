@@ -11,9 +11,9 @@ pipeline {
        stage ("Push") {
           steps
               { 
-                 withCredentials([usernamePassword(credentialsId: 'DockerCred', passwordVariable: 'dockerregpasswd', usernameVariable: 'dockeruser')]) {
+                 withCredentials([usernamePassword(credentialsId: 'Docker', passwordVariable: 'dockerpasswd', usernameVariable: 'dockeruser')])  {
     
-                 sh 'docker login -u ${dockeruser} -p ${dockerregpasswd}'
+                 sh 'docker login -u ${dockeruser} -p ${dockerpasswd}'
                  sh 'docker push docker.io/venky3690/image:${BUILD_NUMBER}'
                 }
                  
@@ -23,7 +23,7 @@ pipeline {
              
             steps 
    {
-     sh "docker run -dt -p 9093:80 docker.io/venky3690/image:${BUILD_NUMBER}"
+     sh "docker run -dt -p 9091:80 docker.io/venky3690/image:${BUILD_NUMBER}"
  
             }
         }
