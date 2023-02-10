@@ -4,7 +4,7 @@ pipeline {
        stage ("Build") { 
           steps
               { 
-                 sh 'docker build -t docker.io/venky3690/image:${BUILD_NUMBER} -f Imagefiles/Dockerfile1 .'
+                 sh 'docker build -t docker.io/venky3690/image:${BUILD_NUMBER} -f Imagefiles/Dockerfile .'
  
               }
            }
