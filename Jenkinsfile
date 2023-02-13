@@ -28,10 +28,13 @@ pipeline {
        stage('Run Docker container on Jenkins Agent') {
              
             steps 
-   {
+             {
      sh "docker run -dt -p 9091:80 docker.io/venky3690/image:${BUILD_NUMBER}"
  
             }
         }
+       stage("Deploy to Kubernetes Cluster"){
+            sh 'kubectl apply -f Deploy.yml'
+                              }
       }
 }
