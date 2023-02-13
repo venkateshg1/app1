@@ -29,7 +29,7 @@ pipeline {
              
             steps 
              {
-                 sh "docker run -dt -p 9092:80 docker.io/venky3690/image:${BUILD_NUMBER}"
+                 sh "docker run -dt -p 9093:80 docker.io/venky3690/image:${BUILD_NUMBER}"
              }
         }
        stage("Deploy to Kubernetes Cluster"){
