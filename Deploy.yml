@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep1
+  labels:
+    app: myapp
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp  
+    spec:
+      containers:
+      - name: c1
+        image: nginx
+        readinessProbe:
+          httpGet: 
+            path: /index.html
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5   
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc1
+  labels: 
+    app: myapp
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30500
+  selector:
+    app: myapp
+  type: NodePort
