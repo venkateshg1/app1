@@ -1,38 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dep1
+  name: nginx-deployment
   labels:
-    app: myapp
+    app: nginx
 spec:
-  replicas: 
+  replicas: 3
   selector:
     matchLabels:
-      app: myapp
+      app: nginx
   template:
     metadata:
       labels:
-        app: myapp  
+        app: nginx
     spec:
       containers:
-      - name: c1
-        image: nginx
-        readinessProbe:
-          httpGet: 
-            path: /index.html
-            port: 80
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc1
-  labels: 
-    app: myapp
+  name: my-service
 spec:
-  ports:
-  - port: 80
-    targetPort: 80
-    nodePort: 30700
-  selector:
-    app: myapp
   type: NodePort
+  selector:
+    app.kubernetes.io/name: MyApp
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 80
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
+  
+    
+  
